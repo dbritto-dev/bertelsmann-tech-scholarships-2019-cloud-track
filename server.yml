@@ -57,9 +57,8 @@ Resources:
           apt install nginx -y
           systemctl start nginx
           cd /var/www/html
-          echo 'Hello World - Udacity 2019!' >> welcome.html
-          aws s3 cp s3://udacity-demo-1/udacity.zip .
-          unzip -oj udacity.zip
+          curl https://github.com/danilobrinu/udacity-cloud-track/raw/master/udacity.zip
+          unzip -o udacity.zip
       ImageId: ami-005bdb005fb00e791
       KeyName: that-one
       SecurityGroups:

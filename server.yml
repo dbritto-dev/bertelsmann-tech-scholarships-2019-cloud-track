@@ -53,11 +53,11 @@ Resources:
         Fn::Base64: !Sub |
           #!/bin/bash
           apt update -y
-          apt install unzip curl -y
+          apt install unzip wget -y
           apt install nginx -y
           systemctl start nginx
           cd /var/www/html
-          curl https://github.com/danilobrinu/udacity-cloud-track/raw/master/udacity.zip
+          wget https://github.com/danilobrinu/udacity-cloud-track/raw/master/udacity.zip
           unzip -o udacity.zip
       ImageId: ami-005bdb005fb00e791
       KeyName: that-one

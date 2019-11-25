@@ -53,7 +53,7 @@ Resources:
         Fn::Base64: !Sub |
           #!/bin/bash
           apt update -y
-          apt install unzip awscli -y
+          apt install unzip curl -y
           apt install nginx -y
           systemctl start nginx
           cd /var/www/html

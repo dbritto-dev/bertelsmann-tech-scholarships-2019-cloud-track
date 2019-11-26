@@ -1,6 +1,6 @@
 Description: >
   Danilo Britto / Udacity 2019
-  Server :D
+  Database :D
 
 Parameters:
   EnvironmentName:
@@ -16,25 +16,36 @@ Parameters:
     Type: String
 
 Resources:
-  DBinstance:
+  DBInstance:
     Type: AWS::RDS::DBInstance
     Properties:
+      DBSubnetGroupName:
+        Ref: DBSubnetGroup
       DBSecurityGroups:
-        - Ref: "DBSecGroup"
+        - Ref: DBSecurityGroup
       AllocatedStorage: "8"
       DBInstanceClass: "db.t2.small"
       Engine: "MySQL"
-      MasterUsername:
-        Fn::ImportValue: !Sub "${UserName}"
-      MasterUserPassword:
-        Fn::ImportValue: !Sub "${Password}"
+      MasterUsername: !Ref UserName
+      MasterUserPassword: !Ref Password
     DeletionPolicy: "Retain"
 
-  DBSecGroup:
+  DBSecurityGroup:
     Type: AWS::RDS::DBSecurityGroup
     Properties:
       GroupDescription: Allow http to our database
-      VpcId:
+      EC2VpcId:
         Fn::ImportValue: !Sub "${EnvironmentName}-VPCID"
       DBSecurityGroupIngress:
-        - EC2SecurityGroupName: !Sub "${EnvironmentName}-WS-SG"
+        - EC2SecurityGroupId:
+            Fn::ImportValue: !Sub "${EnvironmentName}-WS-SG"
+
+  DBSubnetGroup:
+    Type: "AWS::RDS::DBSubnetGroup"
+    Properties:
+      DBSubnetGroupDescription: description
+      SubnetIds:
+        - Fn::ImportValue: !Sub "${EnvironmentName}-PUB1-SN"
+        - Fn::ImportValue: !Sub "${EnvironmentName}-PUB2-SN"
+        - Fn::ImportValue: !Sub "${EnvironmentName}-PRI1-SN"
+        - Fn::ImportValue: !Sub "${EnvironmentName}-PRI2-SN"

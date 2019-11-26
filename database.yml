@@ -37,5 +37,4 @@ Resources:
       VpcId:
         Fn::ImportValue: !Sub "${EnvironmentName}-VPCID"
       DBSecurityGroupIngress:
-        - EC2SecurityGroupName:
-            Ref: "${EnvironmentName}-WS-SG"
+        - EC2SecurityGroupName: !Sub "${EnvironmentName}-WS-SG"

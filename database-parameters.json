@@ -1,0 +1,14 @@
+[
+  {
+    "ParameterKey": "EnvironmentName",
+    "ParameterValue": "UdacityProject"
+  },
+  {
+    "ParameterKey": "UserName",
+    "ParameterValue": "__THE_DEFAULT_USER__"
+  },
+  {
+    "ParameterKey": "Password",
+    "ParameterValue": "__THE_SAME_PASSWORD_OF_ALLWAYS__"
+  }
+]

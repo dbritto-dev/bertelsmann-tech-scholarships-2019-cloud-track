@@ -126,3 +126,10 @@ Resources:
       UnhealthyThresholdCount: 5
       VpcId:
         Fn::ImportValue: !Sub "${EnvironmentName}-VPCID"
+
+Outputs:
+  WSSecurityGroup:
+    Description: A reference to the web server security group
+    Value: !Ref WebServerSecGroup
+    Export:
+      Name: !Sub "${EnvironmentName}-WS-SG"

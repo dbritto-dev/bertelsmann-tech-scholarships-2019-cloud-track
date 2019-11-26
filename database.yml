@@ -16,8 +16,8 @@ Resources:
       AllocatedStorage: "8"
       DBInstanceClass: "db.t2.small"
       Engine: "MySQL"
-      MasterUsername: !Ref UserName
-      MasterUserPassword: !Ref Password
+      MasterUsername: !Sub "{UserName}"
+      MasterUserPassword: !Sub "Password"
     DeletionPolicy: "Retain"
 
   DBSecGroup:

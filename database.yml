@@ -7,6 +7,14 @@ Parameters:
     Description: An environment name that will be prefixed to resources
     Type: String
 
+  UserName:
+    Description: The master user on the database
+    Type: String
+
+  Password:
+    Description: The password of the master user on the database
+    Type: String
+
 Resources:
   DBinstance:
     Type: AWS::RDS::DBInstance

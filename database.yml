@@ -1,0 +1,31 @@
+Description: >
+  Danilo Britto / Udacity 2019
+  Server :D
+
+Parameters:
+  EnvironmentName:
+    Description: An environment name that will be prefixed to resources
+    Type: String
+
+Resources:
+  DBinstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBSecurityGroups:
+        - Ref: "DBSecGroup"
+      AllocatedStorage: "8"
+      DBInstanceClass: "db.t2.small"
+      Engine: "MySQL"
+      MasterUsername: !Ref UserName
+      MasterUserPassword: !Ref Password
+    DeletionPolicy: "Retain"
+
+  DBSecGroup:
+    Type: AWS::RDS::DBSecurityGroup
+    Properties:
+      GroupDescription: Allow http to our database
+      VpcId:
+        Fn::ImportValue: !Sub "${EnvironmentName}-VPCID"
+      DBSecurityGroupIngress:
+        - EC2SecurityGroupName:
+            Ref: "${EnvironmentName}-WS-SG"

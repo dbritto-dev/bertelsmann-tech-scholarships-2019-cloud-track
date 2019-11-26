@@ -16,8 +16,10 @@ Resources:
       AllocatedStorage: "8"
       DBInstanceClass: "db.t2.small"
       Engine: "MySQL"
-      MasterUsername: !Sub "${UserName}"
-      MasterUserPassword: !Sub "${Password}"
+      MasterUsername:
+        Fn::ImportValue: !Sub "${UserName}"
+      MasterUserPassword:
+        Fn::ImportValue: !Sub "${Password}"
     DeletionPolicy: "Retain"
 
   DBSecGroup:

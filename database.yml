@@ -23,12 +23,12 @@ Resources:
         Ref: DBSubnetGroup
       DBSecurityGroups:
         - Ref: DBSecurityGroup
-      AllocatedStorage: "8"
+      AllocatedStorage: "5"
       DBInstanceClass: "db.t2.small"
       Engine: "MySQL"
       MasterUsername: !Ref UserName
       MasterUserPassword: !Ref Password
-    DeletionPolicy: "Retain"
+    DeletionPolicy: "Snapshot"
 
   DBSecurityGroup:
     Type: AWS::RDS::DBSecurityGroup
@@ -43,9 +43,11 @@ Resources:
   DBSubnetGroup:
     Type: "AWS::RDS::DBSubnetGroup"
     Properties:
-      DBSubnetGroupDescription: description
+      DBSubnetGroupDescription: Associate a VPC to DB Instance by the subnets group of the VPC
       SubnetIds:
-        - Fn::ImportValue: !Sub "${EnvironmentName}-PUB1-SN"
-        - Fn::ImportValue: !Sub "${EnvironmentName}-PUB2-SN"
-        - Fn::ImportValue: !Sub "${EnvironmentName}-PRI1-SN"
-        - Fn::ImportValue: !Sub "${EnvironmentName}-PRI2-SN"
+        Fn::Split:
+          - ","
+          - !Join
+            - ","
+            - - Fn::ImportValue: !Sub ${EnvironmentName}-PUB-NETS
+              - Fn::ImportValue: !Sub ${EnvironmentName}-PRIV-NETS
